@@ -26,11 +26,8 @@ namespace Quixel
                     AssetDatabase.CreateAsset(mat, rp);
                     AssetDatabase.Refresh();
                     if (shaderType < 1)
-                    {
-                        mat.shader = Shader.Find("HDRP/Lit");
-#if UNITY_2018_1 || UNITY_2018_2
+                    {                        
                         mat.shader = Shader.Find("HDRenderPipeline/Lit");
-#endif
                         AddHDRPValues(mat);
                         mat.SetInt("_DisplacementMode", dispType);
                     }
