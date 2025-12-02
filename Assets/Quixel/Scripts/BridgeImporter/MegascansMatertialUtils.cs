@@ -36,19 +36,10 @@ namespace Quixel
                         mat.shader = Shader.Find("Universal Render Pipeline/Lit");
                     }
                     if (shaderType > 1)
-                    {
-                        if (isAlembic)
-                        {
-                            mat.shader = Shader.Find("Alembic/Standard");
-                            if (texPack > 0)
-                                mat.shader = Shader.Find("Alembic/Standard (Specular setup)");
-                        }
-                        else
-                        {
-                            mat.shader = Shader.Find("Standard");
-                            if (texPack > 0)
-                                mat.shader = Shader.Find("Standard (Specular setup)");
-                        }
+                    {         
+                        mat.shader = Shader.Find("Standard");
+                        if (texPack > 0)
+                        mat.shader = Shader.Find("Standard (Specular setup)");      
                     }
                 }
                 return mat;
@@ -65,7 +56,6 @@ namespace Quixel
         public static void AddHDRPValues(Material mat)
         {
             mat.renderQueue = 2225;
-
             mat.EnableKeyword("_DISABLE_SSR_TRANSPARENT");
 
             mat.SetShaderPassEnabled("DistortionVectors", false);
@@ -78,13 +68,13 @@ namespace Quixel
             mat.SetColor("_EmissionColor", Color.white);
 
             mat.SetFloat("_AlphaDstBlend", 0.0f);
-#if UNITY_2020
+
             mat.SetFloat("_DistortionBlurDstBlend", 1f);
             mat.SetFloat("_DistortionBlurSrcBlend", 1f);
             mat.SetFloat("_DistortionDstBlend", 1f);
             mat.SetFloat("_DistortionSrcBlend", 1f);
             mat.SetFloat("_ZTestModeDistortion", 4f);
-#endif
+            
             mat.SetFloat("_StencilRefDepth", 8f);
             mat.SetFloat("_StencilWriteMask", 6f);
             mat.SetFloat("_StencilWriteMaskGBuffer", 14f);
@@ -92,7 +82,6 @@ namespace Quixel
             mat.SetFloat("_StencilRefMV", 40f);
             mat.SetFloat("_ZTestDepthEqualForOpaque", 3f);
             mat.SetFloat("_ZWrite", 1.0f);
-
         }
 
         public static void AddSSSSettings(Material mat, int shaderType)
@@ -103,10 +92,8 @@ namespace Quixel
             //mat.EnableKeyword("_MATERIAL_FEATURE_TRANSMISSION");
 
             mat.SetFloat("_SurfaceType", 1.0f);
-#if UNITY_2020
             mat.EnableKeyword("_SURFACE_TYPE_TRANSPARENT");
             mat.EnableKeyword("_ENABLE_FOG_ON_TRANSPARENT");
-#endif
 
             if (shaderType == 0)
             {
